@@ -13,7 +13,7 @@ config.carpetaNumeros = 'Imagen/NUMEROS';
 
 % De HMM
 config.Fs = 8000;
-config.DuracionGrabacion = 2;
+config.duracionGrabacion = 2;
 config.K = 512; % Mejor número de centroides
 config.N = 9; % Mejor número de estados
 config.codebookCarpeta = 'Voz/Codebooks';
