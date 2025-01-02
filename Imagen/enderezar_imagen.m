@@ -38,17 +38,17 @@ function [I, angulo] = enderezar_imagen(I)
 
     % Si no se detectaron líneas verticales, retornar la imagen sin cambios
     if isempty(linea_vertical)
-        disp('No se detectaron líneas verticales.');
+        % disp('No se detectaron líneas verticales.');
         angulo = 0;
         return;
     end
 
     % Dibujar la línea más larga vertical sobre la imagen
-    figure, imshow(edges), title('Línea vertical más larga detectada');
-    hold on;
+    % figure, imshow(edges), title('Línea vertical más larga detectada');
+    % hold on;
     xy = [linea_vertical.point1; linea_vertical.point2];
-    plot(xy(:,1), xy(:,2), 'LineWidth', 2, 'Color', 'red');
-    hold off;
+    % plot(xy(:,1), xy(:,2), 'LineWidth', 2, 'Color', 'red');
+    % hold off;
 
     % Calcular el ángulo de la línea seleccionada respecto al eje Y
     delta_y = xy(2,2) - xy(1,2);
@@ -66,5 +66,5 @@ function [I, angulo] = enderezar_imagen(I)
     I = imrotate(I, angulo);
 
     % Mostrar la imagen enderezada
-    figure, imshow(I), title('Imagen enderezada');
+    % figure, imshow(I), title('Imagen enderezada');
 end
