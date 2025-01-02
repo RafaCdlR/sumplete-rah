@@ -4,19 +4,19 @@ function IBin = preprocesado(I)
     I_p = I;
 
     % Mostrar la imagen original
-    figure, imshow(I_p);
-    Threshold_1 = 170;
+    % figure, imshow(I_p);
+    % Threshold_1 = 170;
      
     % Ajustar valores de los píxeles oscuros
     I_p = imadjust(I_p, [90/255 160/255], [0 1], 0.7);
-    figure, imshow(I_p);
+    % figure, imshow(I_p);
      
     % Generar imagen binaria
     IBin = (I_p <= Threshold_1);
 
     % Mostrar la imagen binaria
-    figure, imshow(IBin);
-    title("Binary Image");
+    % figure, imshow(IBin);
+    % title("Binary Image");
 
     % Aplicar máscara
     IBin = aplicar_mascara(IBin, 7);
@@ -33,15 +33,15 @@ function IBin = preprocesado(I)
     [~, indx] = max([propiedades.Area]);
 
     % Mostrar la imagen con la región más grande resaltada
-    figure, imshow(IBin), title('Regiones detectadas');
-    hold on;
+    % figure, imshow(IBin), title('Regiones detectadas');
+    % hold on;
 
     % Obtener el BoundingBox de la región más grande
     rect = propiedades(indx).BoundingBox;
 
     % Dibujar el rectángulo alrededor de la región más grande
-    rectangle('Position', rect, 'EdgeColor', 'r', 'LineWidth', 2);
-    hold off;
+    % rectangle('Position', rect, 'EdgeColor', 'r', 'LineWidth', 2);
+    % hold off;
 
     % Extraer la región detectada y guardarla en una matriz
     filaInicio = round(rect(2));
@@ -52,8 +52,8 @@ function IBin = preprocesado(I)
     matrizRegion = I(filaInicio:filaFin, colInicio:colFin);
 
     % Mostrar la región extraída
-    figure, imshow(matrizRegion);
-    title('Matriz de la Región Detectada');
+    % figure, imshow(matrizRegion);
+    % title('Matriz de la Región Detectada');
     
     umbral = graythresh(matrizRegion);
     IBin = ~imbinarize(matrizRegion, umbral);
