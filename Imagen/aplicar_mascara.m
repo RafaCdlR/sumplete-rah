@@ -30,6 +30,6 @@ function IOut = aplicar_mascara(I, mascaraSize)
     IOut(:, end-mascaraSize:end) = 0;
 
     % Mostrar la imagen modificada
-    figure, imshow(IOut);
-    title('Imagen Modificada');
+    % figure, imshow(IOut);
+    % title('Imagen Modificada');
 end
