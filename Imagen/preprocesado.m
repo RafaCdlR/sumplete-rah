@@ -1,5 +1,4 @@
 function IBin = preprocesado(I)
-
     I = rgb2gray(I);
     I_p = I;
 
@@ -19,8 +18,8 @@ function IBin = preprocesado(I)
     % title("Binary Image");
 
     % Aplicar máscara
-    IBin = aplicar_mascara(IBin, 7);
-    [IBin, angulo] = enderezar_imagen(IBin);
+    IBin = aplicarMascara(IBin, 7);
+    [IBin, angulo] = enderezarImagen(IBin);
 
     % Rotamos la imagen original.
     I = imrotate(I, angulo, 'bilinear');

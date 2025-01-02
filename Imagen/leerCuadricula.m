@@ -1,6 +1,4 @@
-
-function leerCuadricula()
-
+function cuadricula = leerCuadricula()
     cam = webcam;
     
     % Crea una ventana para mostrar el video en tiempo real.
