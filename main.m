@@ -8,8 +8,6 @@ close all;
 %
 %------------------------------------
 
-% De reconocimiento de imágenes (si tenéis)
-
 % De HMM
 config.Fs = 8000;
 config.DuracionGrabacion = 2;
@@ -19,7 +17,7 @@ config.codebookCarpeta = 'Voz/Codebooks';
 config.modelosCarpeta = 'Voz/ModelosHMM';
 config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 
-% De la lógica (si tenéis)
+% De lógica (si tenéis)
 
 
 %------------------------------------
@@ -31,9 +29,10 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 % Cargar todos los modelos con K y N
 [codebooks, modelosHMM] = cargarCodebooksModelos(config);
 
-% Parte de Ibo
+% Obtiene la cuadricula (falta el tamaño)
+[cuadricula, tamCuadricula] = leerCuadricula();
 
-% Parte de Rubio
+% Seleccionar método: imagen o voz
 while true
     seleccionarReconocedor = lower(input('Elija un método: Imagen(I) / Voz(V): ', 's'));
 
@@ -44,10 +43,18 @@ while true
     end
 end
 
-if seleccionarReconocedor == 'i'
-    [f, c] = obtenerFilaColumnaImagen(); % Ibo
-else
-    [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
+while true
+    if seleccionarReconocedor == 'i'
+        [f, c] = obtenerFilaColumnaImagen(); % Ibo
+    else
+        [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
+    end
+    
+    if f < tamCuadricula || c < tamCuadricula
+        warning('Fila o columna incorrectas. Se seleccionarán de nuevo.');
+    else
+        break;
+    end
 end
 
 % Parte de Rafa
