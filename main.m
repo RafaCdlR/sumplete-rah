@@ -8,6 +8,9 @@ close all;
 %
 %------------------------------------
 
+% De imagen
+config.carpetaNumeros = 'Imagen/NUMEROS';
+
 % De HMM
 config.Fs = 8000;
 config.DuracionGrabacion = 2;
@@ -30,7 +33,7 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 [codebooks, modelosHMM] = cargarCodebooksModelos(config);
 
 % Obtiene la cuadricula (falta el tamaño)
-[cuadricula, tamCuadricula] = leerCuadricula();
+[cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
 
 % Mostrar foto con cuadricula
 
