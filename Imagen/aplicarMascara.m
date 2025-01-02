@@ -16,18 +16,18 @@ function IOut = aplicarMascara(I, mascaraSize)
     for i = 1:mascaraSize:rows - mascaraSize + 1
         for j = 1:mascaraSize:cols - mascaraSize + 1
             % Extraer la región cubierta por la máscara
-            region = IOut(i:i+mascaraSize-1, j:j+mascaraSize-1);
+            region = IOut(i:i + mascaraSize-1, j:j + mascaraSize - 1);
 
             % Si todos los valores en la región son 1, ponerlos a 0.
             if all(region(:))
-                IOut(i:i+mascaraSize-1, j:j+mascaraSize-1) = 0;
+                IOut(i:i + mascaraSize-1, j:j + mascaraSize - 1) = 0;
             end
         end
     end
 
     % Poner los bordes de la imagen a negro
     IOut(:, 1:mascaraSize) = 0;
-    IOut(:, end-mascaraSize:end) = 0;
+    IOut(:, end - mascaraSize:end) = 0;
 
     % Mostrar la imagen modificada
     % figure, imshow(IOut);

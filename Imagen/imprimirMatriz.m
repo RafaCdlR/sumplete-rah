@@ -1,4 +1,8 @@
-function resultadoMatriz = imprimirMatriz(IBin)
+function resultadoMatriz = imprimirMatriz(IBin, carpetaNumeros)
+    if ~exist(carpetaNumeros, 'dir')
+        error('No se encontró la carpeta con los números.');
+    end
+
     % Convertir la imagen binaria a uint8 para que sea compatible con insertText
     IBint = IBin;
     IBint = uint8(IBint) * 255; % Escalar a 255 para que sea visible como imagen
@@ -23,7 +27,8 @@ function resultadoMatriz = imprimirMatriz(IBin)
         % Cargar las plantillas desde la carpeta especificada
         plantillas = cell(1, 9);
         for n = 1:9
-            filename = fullfile('NUMEROS', sprintf('I_%d.png', n));
+            filename = fullfile(carpetaNumeros, sprintf('I_%d.png', n));
+
             if exist(filename, 'file') 
                 plantilla = imread(filename); 
                 plantillas{n} = plantilla;
@@ -160,5 +165,3 @@ function matriz = rellenarMatriz(lista)
         matriz(posiciones(i,1), posiciones(i,2)) = lista(i, 3);  
     end
 end
-
-

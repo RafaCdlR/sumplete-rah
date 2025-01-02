@@ -18,11 +18,11 @@ function [I, angulo] = enderezarImagen(I)
         xy = [lines(k).point1; lines(k).point2];
 
         % Calcular la longitud de la línea
-        len = sqrt((xy(2,1) - xy(1,1))^2 + (xy(2,2) - xy(1,2))^2);
+        len = sqrt((xy(2, 1) - xy(1, 1))^2 + (xy(2, 2) - xy(1, 2))^2);
 
         % Calcular el ángulo de la línea respecto al eje Y
-        delta_y = xy(2,2) - xy(1,2);
-        delta_x = xy(2,1) - xy(1,1);
+        delta_y = xy(2, 2) - xy(1, 2);
+        delta_x = xy(2, 1) - xy(1, 1);
         anguloLinea = atan2d(delta_x, delta_y);
 
         % Verificar si la línea es "vertical" (ángulo cercano a ±90 grados)
@@ -50,8 +50,8 @@ function [I, angulo] = enderezarImagen(I)
     % hold off;
 
     % Calcular el ángulo de la línea seleccionada respecto al eje Y
-    delta_y = xy(2,2) - xy(1,2);
-    delta_x = xy(2,1) - xy(1,1);
+    delta_y = xy(2, 2) - xy(1, 2);
+    delta_x = xy(2, 1) - xy(1, 1);
     angulo = atan2d(delta_x, delta_y);
 
     % Ajustar el ángulo para que sea respecto al eje Y

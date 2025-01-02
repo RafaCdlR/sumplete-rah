@@ -1,4 +1,4 @@
-function cuadricula = leerCuadricula()
+function [cuadricula, tamCuadricula] = leerCuadricula(carpetaNumeros)
     cam = webcam;
     
     % Crea una ventana para mostrar el video en tiempo real.
@@ -10,12 +10,12 @@ function cuadricula = leerCuadricula()
     while ishandle(h)
         img = snapshot(cam);
         i = fliplr(img);
-        imshow(i); 
+        imshow(i, 'InitialMagnification', 'fit');
         drawnow;
     
         if keyPressed
             IPreprocesada = preprocesado(img);
-            cuadricula = imprimirMatriz(IPreprocesada);
+            cuadricula = imprimirMatriz(IPreprocesada, carpetaNumeros);
             keyPressed = false;
         end
     end
