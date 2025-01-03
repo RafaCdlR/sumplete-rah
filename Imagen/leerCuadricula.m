@@ -16,6 +16,7 @@ function [cuadricula, tamCuadricula] = leerCuadricula(carpetaNumeros)
         if keyPressed
             IPreprocesada = preprocesado(img);
             cuadricula = imprimirMatriz(IPreprocesada, carpetaNumeros);
+            tamCuadricula = length(cuadricula);
             keyPressed = false;
         end
     end
