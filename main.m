@@ -8,6 +8,9 @@ close all;
 %
 %------------------------------------
 
+% Dependencias (añadir subdirectorios con funciones)
+addpath("Voz/");
+
 % De reconocimiento de imágenes (si tenéis)
 
 % De HMM
