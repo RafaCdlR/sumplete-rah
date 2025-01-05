@@ -14,8 +14,8 @@ config.carpetaNumeros = 'Imagen/NUMEROS';
 % De HMM
 config.Fs = 8000;
 config.duracionGrabacion = 2;
-config.K = 512; % Mejor número de centroides
-config.N = 9; % Mejor número de estados
+config.K = 768; % Mejor número de centroides
+config.N = 12; % Mejor número de estados
 config.codebookCarpeta = 'Voz/Codebooks';
 config.modelosCarpeta = 'Voz/ModelosHMM';
 config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
