@@ -7,9 +7,8 @@ obtenerCaracteristicasEntrenamiento = false;
 obtenerCaracteristicasPrueba = false;
 obtenerCodebook = false;
 entrenarModelos = false;
-evaluarModelos = true;
-reconocerVoz = false;
-
+evaluarModelos = false;
+reconocerVoz = true;
 
 % Parámetros
 Fs = 8000;
@@ -21,10 +20,10 @@ numTramasRuido = 10;
 longTrama = round(Fs * tiempoTrama);
 longDespTrama = round(Fs * tiempoDesplTrama);
 longVentanaDelta = 5; 
-numCepstrum = 30;
+numCepstrum = 40;
 
-kValues = [512]; % Valores de K a probar
-nEstados = [9]; % Número de estados a probar
+kValues = [768]; % Valores de K a probar
+nEstados = [12]; % Número de estados a probar
 
 % Carpetas
 carpetaGrabaciones = 'Grabaciones'; 
@@ -363,8 +362,8 @@ end
 if reconocerVoz
     % Configuración inicial
     config.duracionGrabacion = 2; % Duración de la grabación (en segundos)
-    config.K = 512; % Mejor K (cantidad de centroides en el codebook)
-    config.N = 9; % Mejor N (número de estados del modelo HMM)
+    config.K = 768; % Mejor K (cantidad de centroides en el codebook)
+    config.N = 12; % Mejor N (número de estados del modelo HMM)
     
     % Validar parámetros iniciales
     if isempty(config.N) || isempty(config.K)
@@ -402,53 +401,48 @@ if reconocerVoz
     
     % Bucle principal de reconocimiento
     while true
-        try
-            % Grabación de audio
-            disp("¡HABLE!");
-            recorder = audiorecorder(Fs, 16, 1);
-            recordblocking(recorder, config.duracionGrabacion);
-            audio = getaudiodata(recorder);
-    
-            % Extraer características del audio grabado
-            caracteristicas = obtenerCaracteristicasPalabra(audio, Fs);
-    
-            % Cuantizar las características usando los codebooks
-            mejorProbabilidad = -Inf;
-            mejorDigito = -1;
-    
-            for num = 0:length(modelosHMM) - 1
-                % Cuantizar las características con el codebook correspondiente
-                centroids = codebooks(num+1).centroids;
-                [~, idx] = min(pdist2(caracteristicas', centroids), [], 2); % Cuantización
-    
-                % Evaluar probabilidad logarítmica para el modelo HMM
-                AFinal = modelosHMM(num+1).AFinal;
-                BFinal = modelosHMM(num+1).BFinal;
-                [~, logProb] = hmmdecode(idx, AFinal, BFinal);
-    
-                % Actualizar el mejor dígito basado en la probabilidad logarítmica
-                if logProb > mejorProbabilidad
-                    mejorProbabilidad = logProb;
-                    mejorDigito = num;
-                end
+        % Grabación de audio
+        disp("¡HABLE!");
+        recorder = audiorecorder(Fs, 16, 1);
+        recordblocking(recorder, config.duracionGrabacion);
+        audio = getaudiodata(recorder);
+
+        % Extraer características del audio grabado
+        caracteristicas = obtenerCaracteristicasPalabra(audio, Fs);
+
+        % Cuantizar las características usando los codebooks
+        mejorProbabilidad = -Inf;
+        mejorDigito = -1;
+
+        for num = 0:length(modelosHMM) - 1
+            % Cuantizar las características con el codebook correspondiente
+            centroids = codebooks(num+1).centroids;
+            [~, idx] = min(pdist2(caracteristicas', centroids), [], 2); % Cuantización
+
+            % Evaluar probabilidad logarítmica para el modelo HMM
+            AFinal = modelosHMM(num+1).AFinal;
+            BFinal = modelosHMM(num+1).BFinal;
+            [~, logProb] = hmmdecode(idx, AFinal, BFinal);
+
+            % Actualizar el mejor dígito basado en la probabilidad logarítmica
+            if logProb > mejorProbabilidad
+                mejorProbabilidad = logProb;
+                mejorDigito = num;
             end
-    
-            % Mostrar el resultado
-            if mejorDigito >= 0
-                fprintf('Dígito reconocido: %d (Probabilidad: %.2f)\n', mejorDigito, mejorProbabilidad);
-            else
-                disp('No se pudo reconocer el dígito. Intente nuevamente.');
-            end
-    
-            % Preguntar al usuario si desea continuar
-            continuar = input('¿Desea decir otro dígito? (s/n): ', 's');
-            if lower(continuar) ~= 's'
-                disp('Finalizando el sistema de reconocimiento.');
-                break;
-            end
-        catch ME
-            disp(['Error durante la ejecución: ', ME.message]);
-            disp('Intente nuevamente.');
+        end
+
+        % Mostrar el resultado
+        if mejorDigito >= 0
+            fprintf('Dígito reconocido: %d (Probabilidad: %.2f)\n', mejorDigito, mejorProbabilidad);
+        else
+            disp('No se pudo reconocer el dígito. Intente nuevamente.');
+        end
+
+        % Preguntar al usuario si desea continuar
+        continuar = input('¿Desea decir otro dígito? (s/n): ', 's');
+        if lower(continuar) ~= 's'
+            disp('Finalizando el sistema de reconocimiento.');
+            break;
         end
     end
 end
