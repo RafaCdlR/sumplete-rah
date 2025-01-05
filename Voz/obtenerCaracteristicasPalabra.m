@@ -8,7 +8,7 @@ function caracteristicas = obtenerCaracteristicasPalabra(audio, Fs)
     longTrama = round(Fs * tiempoTrama);
     longDespTrama = round(Fs * tiempoDesplTrama);
     longVentanaDelta = 5; 
-    numCepstrum = 30;
+    numCepstrum = 40;
     
     % Banco de filtros Mel
     bancoFiltrosMel = generarBancoFiltros(Fs, longTrama);
