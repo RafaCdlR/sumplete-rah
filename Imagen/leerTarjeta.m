@@ -1,4 +1,4 @@
-function num = leerTarjeta()
+function num = leerTarjeta(carpetaNumeros)
     close all;
     cam = webcam;
     
@@ -17,7 +17,7 @@ function num = leerTarjeta()
     
         if keyPressed
             % Procesa la imagen solo si se ha presionado una tecla
-            num = preprocesado_extraccion(img);
+            num = preprocesado_extraccion(img, carpetaNumeros);
             keyPressed = false;
             salir = true;
         end
