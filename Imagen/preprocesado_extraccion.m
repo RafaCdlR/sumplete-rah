@@ -1,4 +1,4 @@
-function mejorPlantilla = preprocesado_extraccion(I)
+function mejorPlantilla = preprocesado_extraccion(I, carpetaNumeros)
 
     % Convertir la imagen a escala de grises
     I = rgb2gray(I);
@@ -27,7 +27,7 @@ function mejorPlantilla = preprocesado_extraccion(I)
     % Cargar plantillas de la carpeta TARJETAS
     plantillas = cell(1, 9);
     for n = 1:9
-        filename = fullfile('TARJETAS', sprintf('T_%d.png', n));
+        filename = fullfile(carpetaNumeros, sprintf('T_%d.png', n));
         if exist(filename, 'file')
             plantillas{n} = imread(filename);
         else
