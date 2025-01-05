@@ -8,15 +8,15 @@ close all;
 %
 %------------------------------------
 
-<<<<<<< HEAD
 % Dependencias (añadir subdirectorios con funciones)
 addpath("Voz/");
+addpath("Imagen/");
+
 
 % De reconocimiento de imágenes (si tenéis)
-=======
+
 % De imagen
 config.carpetaNumeros = 'Imagen/NUMEROS';
->>>>>>> origin/main
 
 % De HMM
 config.Fs = 8000;
@@ -40,7 +40,8 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 [codebooks, modelosHMM] = cargarCodebooksModelos(config);
 
 % Obtiene la cuadricula (falta el tamaño)
-[cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
+% [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
+[cuadricula, tamCuadricula] = leerCuadricula();
 
 % Mostrar foto con cuadricula
 
