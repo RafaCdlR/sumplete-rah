@@ -1,4 +1,4 @@
-function [cuadricula, tamCuadricula] = leerCuadricula()
+function [cuadricula, tamCuadricula] = leerCuadricula(carpetaNumeros)
     cam = webcam;
 
     % Crea una ventana para mostrar el video en tiempo real.
@@ -17,7 +17,7 @@ function [cuadricula, tamCuadricula] = leerCuadricula()
         if keyPressed
             % Procesa la imagen solo si se ha presionado una tecla
             IPreprocesada = preprocesado(img);
-            cuadricula = imprimirMatriz(IPreprocesada);
+            cuadricula = imprimirMatriz(IPreprocesada, carpetaNumeros);
             tamCuadricula = length(cuadricula);
             keyPressed = false; % Reinicia la variable
         end
