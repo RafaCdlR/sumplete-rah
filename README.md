@@ -99,7 +99,7 @@ Esta función realiza el preprocesamiento de una imagen para detectar y extraer 
 ## Reconocimiento de voz
 Esta parte del proyecto se encarga de utilizar grabaciones de audio para reconocer números que corresponden a las filas y columnas de la cuadrícula. El reconocimiento se realiza mediante el uso de Modelos Ocultos de Markov (HMM) y técnicas de procesamiento de audio. A continuación, se describen las funciones principales:
 
-### 1.**obtenerFilaColumnaVoz**
+### 1. **obtenerFilaColumnaVoz**
 Esta función principal interactúa con el usuario para reconocer las coordenadas (fila y columna) a partir de grabaciones de audio. El flujo incluye:
  1. Interacción con el usuario:
   - Solicita al usuario grabar su voz para indicar las coordenadas.
@@ -114,7 +114,7 @@ Esta función principal interactúa con el usuario para reconocer las coordenada
   - Si el número reconocido es incorrecto o no se reconoce, permite al usuario introducirlo manualmente.
   - Incluye un límite de intentos para mejorar la robustez del sistema.
 
-### 2.**obtenerGrabacionesAudio**
+### 2. **obtenerGrabacionesAudio**
 Captura múltiples grabaciones de audio para entrenamiento y prueba. Permite a los usuarios grabar palabras correspondientes a números en un rango específico.
 
 ### 3.**extraerCaracteristicas**
@@ -128,13 +128,13 @@ Procesa cada grabación de audio para extraer las características que se utiliz
   - Delta y Delta-Delta: Calcula las diferencias de primer y segundo orden para capturar características dinámicas.
   - Log-Energía: Calcula la energía logarítmica de las tramas para añadir robustez a los MFCC.
 
-### 4.**obtenerCaracteristicasPalabra**
+### 4. **obtenerCaracteristicasPalabra**
 Similar a extraerCaracteristicas, pero específicamente diseñada para procesar una sola grabación (una palabra). Es utilizada en la fase de reconocimiento.
 
-### 5.**cargarCodebooksModelos**
+### 5. **cargarCodebooksModelos**
 Carga los modelos HMM y los codebooks necesarios para el reconocimiento. Estos modelos son previamente entrenados y se almacenan en archivos.
 
-### 6.**Funciones auxiliares**
+### 6. **Funciones auxiliares**
 Estas funciones se utilizan para el preprocesamiento y análisis de las grabaciones de audio:
  1. preenfasis: Realiza el filtro de preénfasis sobre la señal.
  2. segmentacion: Divide la señal en tramas de tamaño fijo con superposición.
