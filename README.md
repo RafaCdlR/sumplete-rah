@@ -1,6 +1,8 @@
-# Proyecto de Reconocimiento de Filas y Columnas por Voz e Imagen
+# Sumplete mediante reconocimiento de voz e imagen
 
-Este proyecto utiliza técnicas de reconocimiento de patrones para determinar las coordenadas (fila y columna) a partir de entrada por voz o imagen. Está implementado en MATLAB y combina el uso de **Modelos Ocultos de Markov (HMM)** y técnicas de procesamiento de imágenes.
+Este proyecto permite jugar al juego Sumplete utilizando tecnologías de reconocimiento de patrones para identificar las coordenadas (fila y columna) de las celdas seleccionadas, ya sea mediante entrada por voz o por análisis de imágenes. Está implementado en **MATLAB** y combina el uso de **Modelos Ocultos de Markov (HMM)** y **técnicas avanzadas de procesamiento de imágenes**.
+
+El objetivo es hacer el juego más accesible y dinámico, proporcionando una interfaz que interprete las instrucciones del jugador tanto desde la voz como desde imágenes capturadas en tiempo real
 
 ## Contenido
 
@@ -28,7 +30,7 @@ Este proyecto utiliza técnicas de reconocimiento de patrones para determinar la
 - Archivos de modelos y codebooks previamente entrenados.
 
 # Estructura del Proyecto
-## Lectura y Procesamiento de una Cuadrícula 
+## Reconocimiento de cuadrícula
 Esta parte tiene como objetivo capturar una imagen en tiempo real desde una cámara, procesarla para detectar y extraer una cuadrícula, y realizar un análisis sobre la misma. Las funciones desarrolladas abarcan desde la adquisición de imágenes hasta la corrección de su orientación y su binarización:
 
 ### 1. **leerCuadricula**
@@ -92,8 +94,59 @@ Esta función realiza el preprocesamiento de una imagen para detectar y extraer 
 5. **Carga de plantillas**  
    - Las plantillas de números (`T_1.png` a `T_9.png`) se cargan desde una carpeta llamada `TARJETAS`.  
    - Si alguna plantilla falta, se genera un error.
-
+   - 
 6. Para cada región detectada, se calcula la autocorrelación normalizada (`normxcorr2`) con cada una de las plantillas. Si las dimensiones de la región y la plantilla no coinciden, se redimensiona la más pequeña para que ambas tengan el mismo tamaño.
 
 7. Al final, se determina la plantilla con la mayor correlación con la región analizada. Se actualiza la variable `mejorPlantilla` con el índice de la plantilla que presenta la mayor correlación y la función lo devuelve.
 
+## Reconocimiento de voz
+Esta parte del proyecto se encarga de utilizar grabaciones de audio para reconocer números que corresponden a las filas y columnas de la cuadrícula. El reconocimiento se realiza mediante el uso de Modelos Ocultos de Markov (HMM) y técnicas de procesamiento de audio. A continuación, se describen las funciones principales:
+
+### 1.**obtenerFilaColumnaVoz**
+Esta función principal interactúa con el usuario para reconocer las coordenadas (fila y columna) a partir de grabaciones de audio. El flujo incluye:
+
+1. Interacción con el usuario:
+Solicita al usuario grabar su voz para indicar las coordenadas.
+Utiliza mensajes interactivos para confirmar si el número reconocido es correcto.
+2. Grabación de audio:
+Usa audiorecorder para capturar el audio en tiempo real.
+3. Extracción de características:
+Las características de la palabra grabada se obtienen mediante obtenerCaracteristicasPalabra.
+4. Reconocimiento con HMM:
+Se comparan las características con los modelos HMM entrenados para determinar el número más probable.
+5. Confirmación y ajustes:
+Si el número reconocido es incorrecto o no se reconoce, permite al usuario introducirlo manualmente.
+Incluye un límite de intentos para mejorar la robustez del sistema.
+
+### 2.**obtenerGrabacionesAudio**
+Captura múltiples grabaciones de audio para entrenamiento y prueba. Permite a los usuarios grabar palabras correspondientes a números en un rango específico.
+
+### 3.**extraerCaracteristicas**
+Procesa cada grabación de audio para extraer las características que se utilizarán en el entrenamiento y el reconocimiento. Incluye:
+
+1. Preprocesamiento:
+- Preénfasis: Aumenta las altas frecuencias de la señal para mejorar la robustez del reconocimiento.
+- Segmentación: Divide la señal en tramas para análisis individual.
+- Enventanado: Aplica una ventana para reducir discontinuidades en los bordes de las tramas.
+2. Extracción de características:
+- Coeficientes Mel-Frecuencia Cepstrales (MFCC): Obtiene las características principales de la señal en el dominio cepstral.
+- Delta y Delta-Delta: Calcula las diferencias de primer y segundo orden para capturar características dinámicas.
+- Log-Energía: Calcula la energía logarítmica de las tramas para añadir robustez a los MFCC.
+
+### 4.**obtenerCaracteristicasPalabra**
+Similar a extraerCaracteristicas, pero específicamente diseñada para procesar una sola grabación (una palabra). Es utilizada en la fase de reconocimiento.
+
+### 5.**cargarCodebooksModelos**
+Carga los modelos HMM y los codebooks necesarios para el reconocimiento. Estos modelos son previamente entrenados y se almacenan en archivos.
+
+### 6.**Funciones auxiliares**
+Estas funciones se utilizan para el preprocesamiento y análisis de las grabaciones de audio:
+
+1. preenfasis: Realiza el filtro de preénfasis sobre la señal.
+2. segmentacion: Divide la señal en tramas de tamaño fijo con superposición.
+3. enventanar: Aplica una ventana de Hamming a las tramas segmentadas.
+4. inicioFin: Detecta los límites de la palabra en la señal para eliminar ruido inicial y final.
+5. coeficientesMel: Calcula los MFCC utilizando un banco de filtros Mel.
+6. liftering: Aplica un filtro cepstral para destacar las características más relevantes.
+7. logEnergia: Calcula la energía logarítmica de las tramas.
+8. MCCDelta: Calcula las características delta y delta-delta.
