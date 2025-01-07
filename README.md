@@ -148,10 +148,12 @@ Estas funciones se utilizan para el preprocesamiento y análisis de las grabacio
  8. MCCDelta: Calcula las características delta y delta-delta.
 
 ## Uso
- - Ejecuta el programa principal en MATLAB.
- - Captura una imagen de la cuadrícula.
- - Indica si se reconoció correctamente la cuadrícula.
- - Indica una fila y columna, ya sea por voz o plantillas de números frente a la cámara.
- - Confirma si el sistema reconoce correctamente tu selección.
- - El sistema actualizará la cuadrícula eliminando las celdas seleccionadas.
- - Continúa hasta que todas las sumas coincidan con los valores objetivo.
+ 1. Ejecuta el programa principal en MATLAB.
+ 2. Captura una imagen de la cuadrícula del juego Sumplete.
+ 3. Verifica si el sistema reconoció correctamente la cuadrícula.
+ 4. Selecciona una celda indicando una fila y una columna:
+  - Utiliza comandos de voz para decir las coordenadas.
+  - O utiliza plantillas de números frente a la cámara.
+ 5. Confirma si el sistema reconoció correctamente tu selección.
+ 6. El sistema actualizará la cuadrícula eliminando las celdas seleccionadas.
+ 7. Repite el proceso hasta que todas las sumas coincidan con los valores objetivo.
