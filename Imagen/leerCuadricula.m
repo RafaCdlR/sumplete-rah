@@ -4,11 +4,12 @@ function [cuadricula, tamCuadricula] = leerCuadricula(carpetaNumeros)
     % Crea una ventana para mostrar el video en tiempo real.
     h = figure; 
     keyPressed = false; % Variable para controlar cuando se presiona una tecla
+    salir = false;
 
     % Define el callback para manejar la pulsación de teclas
     set(h, 'KeyPressFcn', @(~, ~) setKeyPressed());
 
-    while ishandle(h)
+    while ishandle(h) && ~salir
         img = snapshot(cam);
         i = fliplr(img);
         imshow(i); 
@@ -20,6 +21,7 @@ function [cuadricula, tamCuadricula] = leerCuadricula(carpetaNumeros)
             cuadricula = imprimirMatriz(IPreprocesada, carpetaNumeros);
             tamCuadricula = length(cuadricula);
             keyPressed = false; % Reinicia la variable
+            salir = true;
         end
     end
 
