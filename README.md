@@ -8,7 +8,7 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 
 - [Características](#características)
 - [Requisitos](#requisitos)
-- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Estructura del proyecto](#estructura-del-proyecto)
 - [Configuración](#configuración)
 - [Uso](#uso)
 - [Colaboradores](#colaboradores)
@@ -27,8 +27,10 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
   - Signal Processing Toolbox
   - Image Processing Toolbox
 - Archivos de modelos y codebooks previamente entrenados.
+- Micrófono funcional para entrada de voz.
+- Cámara funcional para entrada visual.
 
-# Estructura del Proyecto
+# Estructura del proyecto
 
 ## Reconocimiento de cuadrícula
 Esta parte tiene como objetivo capturar una imagen en tiempo real desde una cámara, procesarla para detectar y extraer una cuadrícula, y realizar un análisis sobre la misma. Las funciones desarrolladas abarcan desde la adquisición de imágenes hasta la corrección de su orientación y su binarización:
@@ -117,7 +119,7 @@ Esta función principal interactúa con el usuario para reconocer las coordenada
 ### 2. **obtenerGrabacionesAudio**
 Captura múltiples grabaciones de audio para entrenamiento y prueba. Permite a los usuarios grabar palabras correspondientes a números en un rango específico.
 
-### 3.**extraerCaracteristicas**
+### 3. **extraerCaracteristicas**
 Procesa cada grabación de audio para extraer las características que se utilizarán en el entrenamiento y el reconocimiento. Incluye:
  1. Preprocesamiento:
   - Preénfasis: Aumenta las altas frecuencias de la señal para mejorar la robustez del reconocimiento.
@@ -144,3 +146,12 @@ Estas funciones se utilizan para el preprocesamiento y análisis de las grabacio
  6. liftering: Aplica un filtro cepstral para destacar las características más relevantes.
  7. logEnergia: Calcula la energía logarítmica de las tramas.
  8. MCCDelta: Calcula las características delta y delta-delta.
+
+## Uso
+ - Ejecuta el programa principal en MATLAB.
+ - Captura una imagen de la cuadrícula.
+ - Indica si se reconoció correctamente la cuadrícula.
+ - Indica una fila y columna, ya sea por voz o plantillas de números frente a la cámara.
+ - Confirma si el sistema reconoce correctamente tu selección.
+ - El sistema actualizará la cuadrícula eliminando las celdas seleccionadas.
+ - Continúa hasta que todas las sumas coincidan con los valores objetivo.
