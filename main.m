@@ -42,6 +42,12 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 % Obtiene la cuadricula (falta el tamaño)
 [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
 
+% Cuadro de marcas
+marks = false(tamCuadricula);
+
+% Suma de las marcas for filas y por columnas
+[sumf, sumc] = suma_estado(cuadricula, marks);
+
 % Mostrar foto con cuadricula
 
 % En caso de que esté mal, que lo cambie
@@ -103,7 +109,7 @@ end
 
 while true
     if seleccionarReconocedor == 'i'
-        [f, c] = obtenerFilaColumnaImagen(); % Ibo
+        [f, c] = obtenerFilaColumnaImagen(config.carpetaNumeros);
     else
         [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
     end
@@ -114,5 +120,3 @@ while true
         break;
     end
 end
-
-% Parte de Rafa

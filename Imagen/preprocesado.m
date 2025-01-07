@@ -4,7 +4,7 @@ function IBin = preprocesado(I)
 
     % Mostrar la imagen original
     % figure, imshow(I_p);
-    % Threshold_1 = 170;
+    Threshold_1 = 170;
      
     % Ajustar valores de los píxeles oscuros
     I_p = imadjust(I_p, [90/255 160/255], [0 1], 0.7);
