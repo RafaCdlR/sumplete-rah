@@ -4,14 +4,14 @@ function IBin = preprocesado(I)
 
     % Mostrar la imagen original
     % figure, imshow(I_p);
-    Threshold_1 = 170;
+    Threshold = 170;
      
     % Ajustar valores de los píxeles oscuros
     I_p = imadjust(I_p, [90/255 160/255], [0 1], 0.7);
     % figure, imshow(I_p);
      
     % Generar imagen binaria
-    IBin = (I_p <= Threshold_1);
+    IBin = (I_p <= Threshold);
 
     % Mostrar la imagen binaria
     % figure, imshow(IBin);
