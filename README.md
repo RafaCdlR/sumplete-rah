@@ -9,7 +9,6 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 - [Características](#características)
 - [Requisitos](#requisitos)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Lectura y Procesamiento de una Cuadrícula](#lectura-y-procesamiento-de-una-cuadrícula)
 - [Configuración](#configuración)
 - [Uso](#uso)
 - [Colaboradores](#colaboradores)
@@ -83,55 +82,50 @@ Es la función principal, se encarga de capturar video en tiempo real desde la c
 
 ### 2. **preprocesadoExtraccion**
 Esta función realiza el preprocesamiento de una imagen para detectar y extraer un número presente en una tarjeta. Sus pasos incluyen:
-1. Conversión a escala de grises de la imagen. 
-2. Ajuste de los niveles de intensidad en el rango deseado para mejorar la posterior binalización mediante `imadjust`.
-3. Generación de una imagen binaria mediante un umbral y se eliminan las columnas de los extremos (primer y último 25%) para reducir el ruido y centrarse en la región de interés.
-4. **Detección de regiones conectadas**  
+ 1. Conversión a escala de grises de la imagen. 
+ 2. Ajuste de los niveles de intensidad en el rango deseado para mejorar la posterior binalización mediante `imadjust`.
+ 3. Generación de una imagen binaria mediante un umbral y se eliminan las columnas de los extremos (primer y último 25%) para reducir el ruido y centrarse en la región de interés.
+ 4. **Detección de regiones conectadas**  
    - Se identifican las regiones conectadas en la imagen binaria usando `bwlabel`.  
    - Las propiedades de estas regiones (como sus límites) se obtienen mediante `regionprops`.  
    - Se filtran las regiones para eliminar aquellas que son más anchas que altas o que no contienen información relevante.
-
-5. **Carga de plantillas**  
+ 5. **Carga de plantillas**  
    - Las plantillas de números (`T_1.png` a `T_9.png`) se cargan desde una carpeta llamada `TARJETAS`.  
    - Si alguna plantilla falta, se genera un error.
-   - 
-6. Para cada región detectada, se calcula la autocorrelación normalizada (`normxcorr2`) con cada una de las plantillas. Si las dimensiones de la región y la plantilla no coinciden, se redimensiona la más pequeña para que ambas tengan el mismo tamaño.
-
-7. Al final, se determina la plantilla con la mayor correlación con la región analizada. Se actualiza la variable `mejorPlantilla` con el índice de la plantilla que presenta la mayor correlación y la función lo devuelve.
+ 6. Para cada región detectada, se calcula la autocorrelación normalizada (`normxcorr2`) con cada una de las plantillas. Si las dimensiones de la región y la plantilla no coinciden, se redimensiona la más pequeña para que ambas tengan el mismo tamaño.
+ 7. Al final, se determina la plantilla con la mayor correlación con la región analizada. Se actualiza la variable `mejorPlantilla` con el índice de la plantilla que presenta la mayor correlación y la función lo devuelve. 
 
 ## Reconocimiento de voz
 Esta parte del proyecto se encarga de utilizar grabaciones de audio para reconocer números que corresponden a las filas y columnas de la cuadrícula. El reconocimiento se realiza mediante el uso de Modelos Ocultos de Markov (HMM) y técnicas de procesamiento de audio. A continuación, se describen las funciones principales:
 
 ### 1.**obtenerFilaColumnaVoz**
 Esta función principal interactúa con el usuario para reconocer las coordenadas (fila y columna) a partir de grabaciones de audio. El flujo incluye:
-
-1. Interacción con el usuario:
-Solicita al usuario grabar su voz para indicar las coordenadas.
-Utiliza mensajes interactivos para confirmar si el número reconocido es correcto.
-2. Grabación de audio:
-Usa audiorecorder para capturar el audio en tiempo real.
-3. Extracción de características:
-Las características de la palabra grabada se obtienen mediante obtenerCaracteristicasPalabra.
-4. Reconocimiento con HMM:
-Se comparan las características con los modelos HMM entrenados para determinar el número más probable.
-5. Confirmación y ajustes:
-Si el número reconocido es incorrecto o no se reconoce, permite al usuario introducirlo manualmente.
-Incluye un límite de intentos para mejorar la robustez del sistema.
+ 1. Interacción con el usuario:
+  - Solicita al usuario grabar su voz para indicar las coordenadas.
+  - Utiliza mensajes interactivos para confirmar si el número reconocido es correcto.
+ 2. Grabación de audio:
+  - Usa audiorecorder para capturar el audio en tiempo real.
+ 3. Extracción de características:
+  - Las características de la palabra grabada se obtienen mediante obtenerCaracteristicasPalabra.
+ 4. Reconocimiento con HMM:
+  - Se comparan las características con los modelos HMM entrenados para determinar el número más probable.
+ 5. Confirmación y ajustes:
+  - Si el número reconocido es incorrecto o no se reconoce, permite al usuario introducirlo manualmente.
+  - Incluye un límite de intentos para mejorar la robustez del sistema.
 
 ### 2.**obtenerGrabacionesAudio**
 Captura múltiples grabaciones de audio para entrenamiento y prueba. Permite a los usuarios grabar palabras correspondientes a números en un rango específico.
 
 ### 3.**extraerCaracteristicas**
 Procesa cada grabación de audio para extraer las características que se utilizarán en el entrenamiento y el reconocimiento. Incluye:
-
-1. Preprocesamiento:
-- Preénfasis: Aumenta las altas frecuencias de la señal para mejorar la robustez del reconocimiento.
-- Segmentación: Divide la señal en tramas para análisis individual.
-- Enventanado: Aplica una ventana para reducir discontinuidades en los bordes de las tramas.
-2. Extracción de características:
-- Coeficientes Mel-Frecuencia Cepstrales (MFCC): Obtiene las características principales de la señal en el dominio cepstral.
-- Delta y Delta-Delta: Calcula las diferencias de primer y segundo orden para capturar características dinámicas.
-- Log-Energía: Calcula la energía logarítmica de las tramas para añadir robustez a los MFCC.
+ 1. Preprocesamiento:
+  - Preénfasis: Aumenta las altas frecuencias de la señal para mejorar la robustez del reconocimiento.
+  - Segmentación: Divide la señal en tramas para análisis individual.
+  - Enventanado: Aplica una ventana para reducir discontinuidades en los bordes de las tramas.
+ 2. Extracción de características:
+  - Coeficientes Mel-Frecuencia Cepstrales (MFCC): Obtiene las características principales de la señal en el dominio cepstral.
+  - Delta y Delta-Delta: Calcula las diferencias de primer y segundo orden para capturar características dinámicas.
+  - Log-Energía: Calcula la energía logarítmica de las tramas para añadir robustez a los MFCC.
 
 ### 4.**obtenerCaracteristicasPalabra**
 Similar a extraerCaracteristicas, pero específicamente diseñada para procesar una sola grabación (una palabra). Es utilizada en la fase de reconocimiento.
@@ -141,12 +135,11 @@ Carga los modelos HMM y los codebooks necesarios para el reconocimiento. Estos m
 
 ### 6.**Funciones auxiliares**
 Estas funciones se utilizan para el preprocesamiento y análisis de las grabaciones de audio:
-
-1. preenfasis: Realiza el filtro de preénfasis sobre la señal.
-2. segmentacion: Divide la señal en tramas de tamaño fijo con superposición.
-3. enventanar: Aplica una ventana de Hamming a las tramas segmentadas.
-4. inicioFin: Detecta los límites de la palabra en la señal para eliminar ruido inicial y final.
-5. coeficientesMel: Calcula los MFCC utilizando un banco de filtros Mel.
-6. liftering: Aplica un filtro cepstral para destacar las características más relevantes.
-7. logEnergia: Calcula la energía logarítmica de las tramas.
-8. MCCDelta: Calcula las características delta y delta-delta.
+ 1. preenfasis: Realiza el filtro de preénfasis sobre la señal.
+ 2. segmentacion: Divide la señal en tramas de tamaño fijo con superposición.
+ 3. enventanar: Aplica una ventana de Hamming a las tramas segmentadas.
+ 4. inicioFin: Detecta los límites de la palabra en la señal para eliminar ruido inicial y final.
+ 5. coeficientesMel: Calcula los MFCC utilizando un banco de filtros Mel.
+ 6. liftering: Aplica un filtro cepstral para destacar las características más relevantes.
+ 7. logEnergia: Calcula la energía logarítmica de las tramas.
+ 8. MCCDelta: Calcula las características delta y delta-delta.
