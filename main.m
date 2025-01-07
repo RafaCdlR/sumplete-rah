@@ -11,6 +11,7 @@ close all;
 % Dependencias (añadir subdirectorios con funciones)
 addpath("Voz/");
 addpath("Imagen/");
+addpath("juego/");
 
 
 % De reconocimiento de imágenes (si tenéis)
