@@ -28,7 +28,6 @@ config.codebookCarpeta = 'Voz/Codebooks';
 config.modelosCarpeta = 'Voz/ModelosHMM';
 config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 
-% De lógica (si tenéis)
 
 
 %------------------------------------
@@ -43,6 +42,11 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 % Obtiene la cuadricula (falta el tamaño)
 [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
 
+% TODO:
+% Simula los objetivos
+trgf = zeros(tamCuadricula, 1);
+trgc = trgf;
+
 % Cuadro de marcas
 marks = false(tamCuadricula);
 
@@ -50,6 +54,10 @@ marks = false(tamCuadricula);
 [sumf, sumc] = suma_estado(cuadricula, marks);
 
 % Mostrar foto con cuadricula
+mostrarTablero(cuadricula, marks, trgf, trgc);
+
+% Inicializa score
+scr = score(sumf, sumc, trgf, trgc);
 
 % En caso de que esté mal, que lo cambie
 while true
@@ -97,27 +105,48 @@ if modificar == 's'
     end
 end
 
-% Seleccionar método: imagen o voz
-while true
-    seleccionarReconocedor = lower(input('Elija un método: Imagen(I) / Voz(V): ', 's'));
+% ---------------------- Bucle principal ----------------------------
 
-    if ismember(seleccionarReconocedor, ['i', 'v'])
-        break;  
-    else
-        disp('Por favor, elija un método válido: "I" para Imagen o "V" para Voz.');
+% La puntuacion maxima es 10
+while scr < 10
+
+    % Seleccion columna
+    % Seleccionar método: imagen o voz
+    while true
+        seleccionarReconocedor = lower(input('Elija un método: Imagen(I) / Voz(V): ', 's'));
+    
+        if ismember(seleccionarReconocedor, ['i', 'v'])
+            break;  
+        else
+            disp('Por favor, elija un método válido: "I" para Imagen o "V" para Voz.');
+        end
     end
+    % Reconocimiento del mensaje
+    while true
+        if seleccionarReconocedor == 'i'
+            [f, c] = obtenerFilaColumnaImagen(config.carpetaNumeros);
+        else
+            [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
+        end
+        
+        if f < tamCuadricula || c < tamCuadricula
+            warning('Fila o columna incorrectas. Se seleccionarán de nuevo.');
+        else
+            break;
+        end
+    end
+    % Fin input
+
+    % Invierte el valor de las marcas hechas
+    marks(f,c) = ~marks(f,c);
+
+    [sumf, sumc] = suma_estado(cuadricula, marks);
+    scr = score(sumf, sumc, trgf, trgc);
+
+    mostrarTablero(cuadricula, marks, trgf, trgc);
+
 end
 
-while true
-    if seleccionarReconocedor == 'i'
-        [f, c] = obtenerFilaColumnaImagen(config.carpetaNumeros);
-    else
-        [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
-    end
-    
-    if f < tamCuadricula || c < tamCuadricula
-        warning('Fila o columna incorrectas. Se seleccionarán de nuevo.');
-    else
-        break;
-    end
+if scr >= 10
+    disp ("Has completado el sumplete")
 end
