@@ -29,6 +29,7 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 - Archivos de modelos y codebooks previamente entrenados.
 
 # Estructura del Proyecto
+
 ## Reconocimiento de cuadrícula
 Esta parte tiene como objetivo capturar una imagen en tiempo real desde una cámara, procesarla para detectar y extraer una cuadrícula, y realizar un análisis sobre la misma. Las funciones desarrolladas abarcan desde la adquisición de imágenes hasta la corrección de su orientación y su binarización:
 
@@ -71,7 +72,7 @@ Identifica y organiza los números presentes en una cuadrícula NxN.
  4. Asocia los números a las regiones y organiza los resultados en una matriz mediante la función `rellenarMatriz`.
  5. Devuelve la matriz con los valores correspondientes a la cuadrícula.
 
-## Lectura y Procesamiento de una Tarjeta
+## Lectura y procesamiento de una tarjeta
 Esta sección tiene una implementación muy parecida a la anterior, pero aquí captura una tarjeta en tiempo real desde una cámara para procesarla y extraer el número que contiene. Esta son las funciones que abaraca:
 
 ### 1. **leerTarjeta**
