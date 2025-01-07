@@ -39,7 +39,7 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
             end
         end
         
-        if mejorNumero >= 0
+        if mejorNumero >= 1
             fprintf('Número reconocido: %d\n', mejorNumero);
             correcto = lower(input(sprintf('¿Es correcta la %s seleccionada? (s / n): ', parte), 's'));
             
