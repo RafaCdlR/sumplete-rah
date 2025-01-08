@@ -150,6 +150,18 @@ Estas funciones se utilizan para el preprocesamiento y análisis de las grabacio
 ## Reconocimiento de imagen
 
 ## Reconocimiento de voz
+1. Precisión del reconocimiento de voz:
+ - Problema: A veces el sistema puede no reconocer correctamente los números debido a acentos, pronunciación imprecisa, ruido de fondo, falta de entrenamiento, mal micrófono, etc
+ - Solución: Pronunciar las palabras claramente, con el acento más neutro posible y en un lugar sin ruido. Además de buscar un mejor micrófono, varías muestras de audio, más centroides y estados. En general, eso mejoraría la precisión del HMM.
+2. Grabaciones con palabras cortadas:
+ - Problema: Algunas grabaciones tienen números entrecortados. Por ejemplo, en lugar de escuchar "cero", se escucha "ero".
+ - Solución: Regrabar aquellas grabaciones.
+3. Retraso en el reconocimiento:
+ - Problema: El jugador puede seleccionar la opción de fila y columna por voz, pero no decir nada.
+ - Solución: Que el jugador pulse un botón para hablar y comprobar rangos de fila o columna.
+4. Detección incorrecta de número:
+ - Problema: El sistema de voz podría no reconocer ni fila ni columna bien de manera prolongada.
+ - Solución: Poner un máximo de intentos y que indique ambos de forma manual.
 
 ## Lógica
 # Uso
