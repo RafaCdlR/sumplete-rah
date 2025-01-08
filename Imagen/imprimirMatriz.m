@@ -1,4 +1,4 @@
-function resultadoMatriz = imprimirMatriz(IBin, carpetaNumeros)
+function [resultadoMatriz, imagenEtiquetada] = imprimirMatriz(IBin, carpetaNumeros)
     if ~exist(carpetaNumeros, 'dir')
         error('No se encontró la carpeta con los números.');
     end
@@ -156,15 +156,15 @@ function resultadoMatriz = imprimirMatriz(IBin, carpetaNumeros)
             lista(i, :) = [filaInicio colInicio numeroDetectado];
 
             % Añadir el número detectado como etiqueta en la imagen
-            % posicionTexto = [colInicio, filaInicio];
-            % imagenEtiquetada = insertText(imagenEtiquetada, posicionTexto, ...
-            %     num2str(numeroDetectado), 'TextColor', 'red', ...
-            %     'BoxOpacity', 0, 'FontSize', 18);
+             posicionTexto = [colInicio, filaInicio];
+             imagenEtiquetada = insertText(imagenEtiquetada, posicionTexto, ...
+                 num2str(numeroDetectado), 'TextColor', 'red', ...
+                 'BoxOpacity', 0, 'FontSize', 18);
         end
 
         % Mostrar la imagen original con las etiquetas
-        % figure, imshow(imagenEtiquetada);
-        % title('Imagen con regiones identificadas y etiquetadas');
+         figure, imshow(imagenEtiquetada);
+         title('Imagen con regiones identificadas y etiquetadas');
 
         lista = juntarCifras(pareja, lista);
         resultadoMatriz = rellenarMatriz(lista);
