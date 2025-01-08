@@ -7,18 +7,28 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
     while fila == -1 || columna == -1
         if fila ~= -1 % Ya se asignó la fila, cambiamos a columna
             parte = 'columna';
+            intentosFallidos = 0;
         end
-
+        
         fprintf('Pulse Enter para hablar y decir la %s.\n', parte);
         pause();
         
-        % Grabar
-        recorder = audiorecorder(config.Fs, 16, 1);
-        recordblocking(recorder, config.duracionGrabacion);
-        audio = getaudiodata(recorder);
-        
-        % Extraer características
-        caracteristicas = obtenerCaracteristicasPalabra(audio, config.Fs);
+        while true
+            try
+                % Grabar
+                recorder = audiorecorder(config.Fs, 16, 1);
+                recordblocking(recorder, config.duracionGrabacion);
+                audio = getaudiodata(recorder);
+                
+                caracteristicas = obtenerCaracteristicasPalabra(audio, config.Fs);
+                
+                if ~isempty(caracteristicas)
+                    break;
+                end
+            catch ME
+                 warning(['Error al procesar el audio: ', ME.message]);
+            end
+        end
 
         % Cuantizar
         mejorProbabilidad = -Inf;
@@ -50,7 +60,9 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
                     columna = mejorNumero;
                 end
 
-                intentosFallidos = 0; 
+                intentosFallidos = 0;
+            else
+                intentosFallidos = intentosFallidos + 1;
             end
         else
             disp('No se pudo reconocer el número. Intente nuevamente.');
