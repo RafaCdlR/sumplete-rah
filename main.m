@@ -35,7 +35,7 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 [codebooks, modelosHMM] = cargarCodebooksModelos(config);
 
 % Obtiene la cuadricula
-while True
+while true
     [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
     
     modificar = lower(input('¿Es correcta la cuadrícula? (s/n): ', 's'));
