@@ -64,6 +64,7 @@ end
 if modificar == 's'
     while true
         try
+            disp(cuadricula);
             fila = input('Ingrese la fila del número que desea modificar: ');
             columna = input('Ingrese la columna del número que desea modificar: ');
             nuevoNumero = input('Ingrese el nuevo número: ');
