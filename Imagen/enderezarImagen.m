@@ -62,5 +62,5 @@ function [I, angulo] = enderezarImagen(I)
     I = imrotate(I, angulo);
 
     % Mostrar la imagen enderezada
-    figure, imshow(I), title('Imagen rotada');
+    % figure, imshow(I), title('Imagen rotada');
 end
