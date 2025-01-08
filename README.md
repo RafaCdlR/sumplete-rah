@@ -193,7 +193,7 @@ Además se encarga de una visualización correcta del tablero de juego, mostrand
 
 ### Reconocimiento de imagen
 
-1. **Identificar los números de la cuadrícula**
+1. **Identificar los números de la cuadrícula**:
 
    - **Problema**: El sistema no podía clasificar bien los números, antes usaba los momentos invariantes de Hu, pero no servía para nada. Como cada imagen era distinta a la anterior no tenía mucho sentido su uso. Más tarde se usó la autocorrelación y las medidas que proporciona la función `regionProps` para poder identificarlos bien, pero seguía sin funcionar.
    - **Solución**: Se implementó un enfoque basado en plantillas para mejorar la precisión en la identificación. Cada dígito fue almacenado como una plantilla de referencia. Luego, se utilizó la autocorrelación normalizada para comparar las plantillas con los números detectados en las imágenes. Este método permitió una mejor correspondencia entre las características de los números. Además, se complementó el proceso con el cálculo del número de Euler, proporcionado por la función `regionProps`, lo que ayudó a reforzar la clasificación al analizar la topología de las formas.
