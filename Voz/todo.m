@@ -70,39 +70,28 @@ if obtenerCaracteristicasEntrenamiento
         for j = 1:length(archivos)
             % Leer audio
             archivoAudio = fullfile(digitGrabaciones, archivos(j).name);
-            try
-                [senal, Fs] = audioread(archivoAudio);
-                
-                % Preenfasis
-                senal = preenfasis(senal, a); 
-                % Segmentar
-                tramas = segmentacion(senal, longTrama, longDespTrama);
-                [tramasPalabra, inicio, fin] = inicioFin(tramas, numTramasRuido);
-                tramasPalabra = enventanar(tramasPalabra, ventana); % Enventanamiento
-                % Coeficientes
-                coefMel = coeficientesMel(tramasPalabra, bancoFiltrosMel);
-                coefMel = liftering(coefMel', numCepstrum);
-                % Delta y Delta-Delta
-                deltaCoefMel = MCCDelta(coefMel, longVentanaDelta);
-                deltaDeltaCoefMel = MCCDelta(deltaCoefMel, longVentanaDelta);
-                % Energía
-                energia = logEnergia(tramasPalabra);
-                % Unir carácterísticas
-                caracteristicas = [energia; coefMel'; deltaCoefMel'; deltaDeltaCoefMel'];
-        
-                % Guardar archivo características
-                nombreArchivo = fullfile(digitFolder, ['iteracion_' num2str(j) '.mat']);
-                save(nombreArchivo, 'caracteristicas');
-            catch ME
-                fprintf('Error procesando archivo: %s\n', archivoAudio);
-                fprintf('Error: %s\n', ME.message);
-                
-                % Intentar eliminar el archivo
-                if exist(archivoAudio, 'file')
-                    delete(archivoAudio);
-                    disp(['Archivo eliminado: ', archivoAudio]);
-                end
-            end
+            [senal, Fs] = audioread(archivoAudio);
+            
+            % Preenfasis
+            senal = preenfasis(senal, a); 
+            % Segmentar
+            tramas = segmentacion(senal, longTrama, longDespTrama);
+            [tramasPalabra, inicio, fin] = inicioFin(tramas, numTramasRuido);
+            tramasPalabra = enventanar(tramasPalabra, ventana); % Enventanamiento
+            % Coeficientes
+            coefMel = coeficientesMel(tramasPalabra, bancoFiltrosMel);
+            coefMel = liftering(coefMel', numCepstrum);
+            % Delta y Delta-Delta
+            deltaCoefMel = MCCDelta(coefMel, longVentanaDelta);
+            deltaDeltaCoefMel = MCCDelta(deltaCoefMel, longVentanaDelta);
+            % Energía
+            energia = logEnergia(tramasPalabra);
+            % Unir carácterísticas
+            caracteristicas = [energia; coefMel'; deltaCoefMel'; deltaDeltaCoefMel'];
+    
+            % Guardar archivo características
+            nombreArchivo = fullfile(digitFolder, ['iteracion_' num2str(j) '.mat']);
+            save(nombreArchivo, 'caracteristicas');
         end
     end
     
@@ -312,7 +301,7 @@ if evaluarModelos
             
             for num = 0:9
                 % Carpeta de pruebas para el dígito actual
-                testFolder = fullfile(carpetaCaracteristicasTest, num2str(num));
+                testFolder = fullfile(carpetaCaracteristicas, num2str(num));
                 testArchivos = dir(fullfile(testFolder, '*.mat'));
                 
                 for archivoTest = testArchivos'
