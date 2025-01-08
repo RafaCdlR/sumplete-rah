@@ -5,11 +5,11 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
     intentosFallidos = 0;  
 
     while fila == -1 || columna == -1
-        fprintf('Pulse Enter para hablar y decir la %s.\n', parte);
-        pause();
-        
         while true
             try
+                fprintf('Pulse Enter para hablar y decir la %s.\n', parte);
+                pause();
+
                 % Grabar
                 recorder = audiorecorder(config.Fs, 16, 1);
                 recordblocking(recorder, config.duracionGrabacion);
@@ -70,6 +70,8 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
 
             if strcmp(parte, 'fila')
                 fila = input('Introduzca manualmente la fila: ');
+                intentosFallidos = 0;
+                parte = 'columna';
             else
                 columna = input('Introduzca manualmente la columna: ');
             end
