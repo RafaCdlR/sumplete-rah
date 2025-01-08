@@ -5,11 +5,6 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
     intentosFallidos = 0;  
 
     while fila == -1 || columna == -1
-        if fila ~= -1 % Ya se asignó la fila, cambiamos a columna
-            parte = 'columna';
-            intentosFallidos = 0;
-        end
-        
         fprintf('Pulse Enter para hablar y decir la %s.\n', parte);
         pause();
         
@@ -56,6 +51,7 @@ function [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config)
             if correcto == 's'
                 if strcmp(parte, 'fila')
                     fila = mejorNumero;
+                    parte = 'columna';
                 else
                     columna = mejorNumero;
                 end
