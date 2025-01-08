@@ -11,7 +11,6 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Problemas](#Problemas)
 - [Uso](#uso)
-- 
 
 ## Características
 
