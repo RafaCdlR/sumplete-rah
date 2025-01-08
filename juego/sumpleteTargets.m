@@ -7,9 +7,21 @@
 %   targetC - Vector con los objetivos de cada columna.
 
 function [targetF, targetC] = sumpleteTargets(matriz)
-    incluir = randi([0, 1], size(matriz)); 
+    incluir = zeros(size(matriz));
 
-    targetF = sum(matriz .* incluir, 2); % Suma de filas
-    targetC = sum(matriz .* incluir, 1); % Suma de columnas
-    targetC = targetC';
+    % Garantizar que al menos un valor por fila sea incluido
+    for i = 1:size(matriz, 1)
+        col = randi(size(matriz, 2)); 
+        incluir(i, col) = 1;
+    end
+
+    % Garantizar que al menos un valor por columna sea incluido
+    for j = 1:size(matriz, 2)
+        fila = randi(size(matriz, 1)); 
+        incluir(fila, j) = 1; 
+    end
+
+    % Calcular los objetivos
+    targetF = sum(matriz .* incluir, 2); 
+    targetC = sum(matriz .* incluir, 1)';
 end
