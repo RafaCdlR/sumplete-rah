@@ -9,7 +9,7 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 - [Características](#características)
 - [Requisitos](#requisitos)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Configuración](#configuración)
+- [Problemas](#Problemas)
 - [Uso](#uso)
 - [Colaboradores](#colaboradores)
 
@@ -32,7 +32,7 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 
 # Estructura del proyecto
 
-## Reconocimiento de cuadrícula
+## Reconocimiento de imágen
 Esta parte tiene como objetivo capturar una imagen en tiempo real desde una cámara, procesarla para detectar y extraer una cuadrícula, y realizar un análisis sobre la misma. Las funciones desarrolladas abarcan desde la adquisición de imágenes hasta la corrección de su orientación y su binarización:  
 
 ### 1. **leerCuadricula**  
@@ -143,7 +143,16 @@ Estas funciones se utilizan para el preprocesamiento y análisis de las grabacio
  7. logEnergia: Calcula la energía logarítmica de las tramas.
  8. MCCDelta: Calcula las características delta y delta-delta.
 
-## Uso
+## Lógica
+
+# Problemas
+
+## Reconocimiento de imagen
+
+## Reconocimiento de voz
+
+## Lógica
+# Uso
  1. Ejecuta el programa principal en MATLAB.
  2. Captura una imagen de la cuadrícula del juego Sumplete.
  3. Verifica si el sistema reconoció correctamente la cuadrícula.
