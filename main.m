@@ -25,7 +25,6 @@ config.codebookCarpeta = 'Voz/Codebooks';
 config.modelosCarpeta = 'Voz/ModelosHMM';
 config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 
-
 %------------------------------------
 %
 % Código principal
@@ -36,7 +35,16 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 [codebooks, modelosHMM] = cargarCodebooksModelos(config);
 
 % Obtiene la cuadricula
-[cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
+while True
+    [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
+    
+    modificar = lower(input('¿Es correcta la cuadrícula? (s/n): ', 's'));
+    if ismember(modificar, ['s', 'n'])
+        break;
+    else
+        disp('Por favor, ingrese "s" para sí o "n" para no.');
+    end
+end
 
 % En caso de que esté mal, que lo cambie
 while true
