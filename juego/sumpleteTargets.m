@@ -22,6 +22,6 @@ function [targetF, targetC] = sumpleteTargets(matriz)
     end
 
     % Calcular los objetivos
-    targetF = sum(matriz .* incluir, 2); 
-    targetC = sum(matriz .* incluir, 1)';
+    targetF = sum(matriz .* incluir, 2)'; 
+    targetC = sum(matriz .* incluir, 1);
 end
