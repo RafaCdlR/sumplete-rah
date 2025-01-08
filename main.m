@@ -13,9 +13,6 @@ addpath("Voz/");
 addpath("Imagen/");
 addpath("juego/");
 
-
-% De reconocimiento de imágenes (si tenéis)
-
 % De imagen
 config.carpetaNumeros = 'Imagen/NUMEROS';
 
@@ -29,7 +26,6 @@ config.modelosCarpeta = 'Voz/ModelosHMM';
 config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 
 
-
 %------------------------------------
 %
 % Código principal
@@ -39,25 +35,8 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 % Cargar todos los modelos con K y N
 [codebooks, modelosHMM] = cargarCodebooksModelos(config);
 
-% Obtiene la cuadricula (falta el tamaño)
+% Obtiene la cuadricula
 [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
-
-% TODO:
-% Simula los objetivos
-trgf = zeros(tamCuadricula, 1);
-trgc = trgf;
-
-% Cuadro de marcas
-marks = false(tamCuadricula);
-
-% Suma de las marcas for filas y por columnas
-[sumf, sumc] = suma_estado(cuadricula, marks);
-
-% Mostrar foto con cuadricula
-mostrarTablero(cuadricula, marks, trgf, trgc, sumf, sumc);
-
-% Inicializa score
-scr = score(sumf, sumc, trgf, trgc);
 
 % En caso de que esté mal, que lo cambie
 while true
@@ -104,6 +83,22 @@ if modificar == 's'
         end
     end
 end
+
+% TODO:
+% Obtiene los objetivos
+[trgf, tgrc] = sumpleteTargets(cuadricula); 
+
+% Cuadro de marcas
+marks = false(tamCuadricula);
+
+% Suma de las marcas for filas y por columnas
+[sumf, sumc] = suma_estado(cuadricula, marks);
+
+% Mostrar foto con cuadricula
+mostrarTablero(cuadricula, marks, trgf, trgc, sumf, sumc);
+
+% Inicializa score
+scr = score(sumf, sumc, trgf, trgc);
 
 % ---------------------- Bucle principal ----------------------------
 
