@@ -11,4 +11,5 @@ function [targetF, targetC] = sumpleteTargets(matriz)
 
     targetF = sum(matriz .* incluir, 2); % Suma de filas
     targetC = sum(matriz .* incluir, 1); % Suma de columnas
+    targetC = targetC';
 end
