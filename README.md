@@ -9,8 +9,9 @@ El objetivo es hacer el juego más accesible y dinámico, proporcionando una int
 - [Características](#características)
 - [Requisitos](#requisitos)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Problemas](#Problemas)
+- [Problemas](#problemas)
 - [Uso](#uso)
+- [Participantes](#participantes)
 
 ## Características
 
@@ -225,3 +226,8 @@ Además se encarga de una visualización correcta del tablero de juego, mostrand
 5. Confirma si el sistema reconoció correctamente tu selección.
 6. El sistema actualizará la cuadrícula eliminando las celdas seleccionadas.
 7. Repite el proceso hasta que todas las sumas coincidan con los valores objetivo.
+
+## Pariticipantes
+- Ivan Cantos Piñero: autor de reconocimiento de imagen.
+- Rubén Tocón Argudo: autor de reconocimiento de voz.
+- Rafael Caro de los Reyes: autor de la lógica del programa.
