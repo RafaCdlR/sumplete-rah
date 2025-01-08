@@ -10,6 +10,6 @@
 %   sumc: array de n elementos donde sumf[i] = sum(i,:)
 function [sumf, sumc] = suma_estado(cuadricula, mark)
    masked = cuadricula .* mark;
-   sumf = sum(masked, 2);
+   sumf = sum(masked, 2)';
    sumc = sum(masked, 1);
 end

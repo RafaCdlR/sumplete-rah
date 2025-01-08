@@ -1,14 +1,33 @@
-cuadricula = ...
+close all
+
+cuadricula1 = ...
 [ 2 1 4 2
   3 7 1 2
   9 8 1 4
   5 2 6 9
  ];
 
+
+trgf1 = [6 11 1 11];
+trgc1 = [5 9 6 9];
+
+cuadricula2 = ...
+[ 6 3 1
+  4 9 2
+  1 1 7
+];
+trgf2 = [7 2 2];
+trgc2 = [7 1 3];
+
+
+cuadricula = cuadricula2;
+trgf = trgf2;
+trgc = trgc2;
+
+
 tamCuadricula = size(cuadricula,1);
 
-trgf = [6 11 1 11];
-trgc = [5 9 6 9];
+
 
 
 marks = false(tamCuadricula);
@@ -57,3 +76,5 @@ end
 if scr >= 10
     disp ("Has completado el sumplete")
 end
+
+close all
