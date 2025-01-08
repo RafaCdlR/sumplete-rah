@@ -15,6 +15,7 @@ addpath("juego/");
 
 % De imagen
 config.carpetaNumeros = 'Imagen/NUMEROS';
+config.carpetaTarjetas = 'Imagen/TARJETAS';
 
 % De HMM
 config.Fs = 8000;
@@ -24,6 +25,7 @@ config.N = 12; % Mejor número de estados
 config.codebookCarpeta = 'Voz/Codebooks';
 config.modelosCarpeta = 'Voz/ModelosHMM';
 config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
+
 
 %------------------------------------
 %
@@ -36,8 +38,9 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 
 % Obtiene la cuadricula
 while true
-    [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
+    [cuadricula, tamCuadricula, imagen] = leerCuadricula(config.carpetaNumeros);
     
+    figure, imshow(imagen);
     modificar = lower(input('¿Es correcta la cuadrícula? (s/n): ', 's'));
     if ismember(modificar, ['s', 'n'])
         break;
@@ -126,7 +129,7 @@ while scr < 10
     % Reconocimiento de fila o columna
     while true
         if seleccionarReconocedor == 'i'
-            [fila, columna] = obtenerFilaColumnaImagen(config.carpetaNumeros);
+            [fila, columna] = obtenerFilaColumnaImagen(config.carpetaTarjetas);
         else
             [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
         end
