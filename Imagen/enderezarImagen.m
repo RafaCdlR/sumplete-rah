@@ -1,4 +1,3 @@
-% Si la imagen está rotada más de 90 grados ya no funciona.
 
 function [I, angulo] = enderezarImagen(I) 
     % Detectar bordes con Canny y aplicar Hough.
@@ -9,7 +8,7 @@ function [I, angulo] = enderezarImagen(I)
     P = houghpeaks(H, 10);
     lines = houghlines(edges, T, R, P);
 
-    % Inicializar variables para encontrar la línea más larga vertical
+    % Inicializar variables para encontrar la línea más larga horizontal
     maxLen = 0;
     lineaVertical = [];
 
@@ -25,9 +24,8 @@ function [I, angulo] = enderezarImagen(I)
         delta_x = xy(2, 1) - xy(1, 1);
         anguloLinea = atan2d(delta_x, delta_y);
 
-        % Verificar si la línea es "vertical" (ángulo cercano a ±90 grados)
-        if abs(anguloLinea) > 45 % Se considera vertical si el ángulo es mayor a 45 grados
-            % Actualizar si la longitud es mayor
+        % Verificar si la línea es "horizontal" (ángulo mayor que 45)
+        if abs(anguloLinea) > 45
             if len > maxLen
                 maxLen = len;
                 lineaVertical = lines(k);
@@ -35,17 +33,16 @@ function [I, angulo] = enderezarImagen(I)
         end
     end
 
-    % Si no se detectaron líneas verticales, retornar la imagen sin cambios
+    % Si no se detectaron líneas horizontales.
     if isempty(lineaVertical)
-        % disp('No se detectaron líneas verticales.');
         angulo = 0;
         return;
     end
 
-    % Dibujar la línea más larga vertical sobre la imagen
-    % figure, imshow(edges), title('Línea vertical más larga detectada');
+    % Dibujar la línea más larga horizontal sobre la imagen
+    % figure, imshow(edges), title('Línea horizontal más larga detectada');
     % hold on;
-    xy = [lineaVertical.point1; lineaVertical.point2];
+    % xy = [lineaVertical.point1; lineaVertical.point2];
     % plot(xy(:,1), xy(:,2), 'LineWidth', 2, 'Color', 'red');
     % hold off;
 
@@ -65,5 +62,5 @@ function [I, angulo] = enderezarImagen(I)
     I = imrotate(I, angulo);
 
     % Mostrar la imagen enderezada
-    % figure, imshow(I), title('Imagen enderezada');
+    figure, imshow(I), title('Imagen rotada');
 end
