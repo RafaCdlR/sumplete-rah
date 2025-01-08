@@ -54,7 +54,7 @@ marks = false(tamCuadricula);
 [sumf, sumc] = suma_estado(cuadricula, marks);
 
 % Mostrar foto con cuadricula
-mostrarTablero(cuadricula, marks, trgf, trgc);
+mostrarTablero(cuadricula, marks, trgf, trgc, sumf, sumc);
 
 % Inicializa score
 scr = score(sumf, sumc, trgf, trgc);
@@ -129,7 +129,7 @@ while scr < 10
             [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
         end
         
-        if f < tamCuadricula || c < tamCuadricula
+        if f > tamCuadricula || c > tamCuadricula
             warning('Fila o columna incorrectas. Se seleccionarán de nuevo.');
         else
             break;
@@ -140,10 +140,11 @@ while scr < 10
     % Invierte el valor de las marcas hechas
     marks(f,c) = ~marks(f,c);
 
+    % Calcula de nuevo la puntuacion
     [sumf, sumc] = suma_estado(cuadricula, marks);
     scr = score(sumf, sumc, trgf, trgc);
 
-    mostrarTablero(cuadricula, marks, trgf, trgc);
+    mostrarTablero(cuadricula, marks, trgf, trgc, sumf, sumc);
 
 end
 

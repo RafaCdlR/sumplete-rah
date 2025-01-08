@@ -1,4 +1,4 @@
-function mostrarTablero(data, mask, row_array, col_array)
+function mostrarTablero(data, mask, row_array, col_array, sumf, sumc)
 
     n = size(data,1);
 
@@ -43,17 +43,27 @@ function mostrarTablero(data, mask, row_array, col_array)
     % números de las filas
     for i = 1:n
         y = -(i-1) * cell_size;
+        if sumf(i) == row_array(i)
+            color = 'blue';
+        else
+            color = 'red';
+        end
         text(-cell_size/2, y - cell_size/2, num2str(row_array(i)), ...
             'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
-            'Color', 'blue', 'FontSize', 12);
+            'Color', color, 'FontSize', 12);
     end
 
     % números de las columnas
     for j = 1:n
         x = (j-1) * cell_size;
+        if sumc(j) == col_array(j)
+            color = 'blue';
+        else
+            color = 'red';
+        end
         text(x + cell_size/2, cell_size/2 - (n+1) * cell_size, num2str(col_array(j)), ...
             'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
-            'Color', 'blue', 'FontSize', 12);
+            'Color', color, 'FontSize', 12);
     end
 
     hold off;
