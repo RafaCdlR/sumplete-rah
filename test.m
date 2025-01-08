@@ -1,5 +1,9 @@
 close all
 
+addpath("Voz/");
+addpath("Imagen/");
+addpath("juego/");
+
 cuadricula1 = ...
 [ 2 1 4 2
   3 7 1 2
