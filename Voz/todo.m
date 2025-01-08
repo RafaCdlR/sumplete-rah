@@ -195,7 +195,7 @@ end
 
 %% Entrenar
 if entrenarModelos
-    for num = 7:9 
+    for num = 0:9 
         digitFolder = fullfile(carpetaCaracteristicas, num2str(num));
         archivos = dir(fullfile(digitFolder, '*.mat'));
         secuencias = [];
