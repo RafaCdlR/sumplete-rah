@@ -84,13 +84,13 @@ Esta función realiza el preprocesamiento de una imagen para detectar y extraer 
  1. Conversión a escala de grises de la imagen. 
  2. Ajuste de los niveles de intensidad en el rango deseado para mejorar la posterior binalización mediante `imadjust`.
  3. Generación de una imagen binaria mediante un umbral y se eliminan las columnas de los extremos (primer y último 25%) para reducir el ruido y centrarse en la región de interés.
- 4. **Detección de regiones conectadas**  
-   - Se identifican las regiones conectadas en la imagen binaria usando `bwlabel`.  
-   - Las propiedades de estas regiones (como sus límites) se obtienen mediante `regionprops`.  
-   - Se filtran las regiones para eliminar aquellas que son más anchas que altas o que no contienen información relevante.
- 5. **Carga de plantillas**  
-   - Las plantillas de números (`T_1.png` a `T_9.png`) se cargan desde una carpeta llamada `TARJETAS`.  
-   - Si alguna plantilla falta, se genera un error.
+ 4. **Detección de regiones conectadas:**  
+     - Se identifican las regiones conectadas en la imagen binaria usando `bwlabel`.  
+     - Las propiedades de estas regiones (como sus límites) se obtienen mediante `regionprops`.  
+     - Se filtran las regiones para eliminar aquellas que son más anchas que altas o que no contienen información relevante.
+ 5. **Carga de plantillas:**  
+     - Las plantillas de números (`T_1.png` a `T_9.png`) se cargan desde una carpeta llamada `TARJETAS`.  
+     - Si alguna plantilla falta, se genera un error.
  6. Para cada región detectada, se calcula la autocorrelación normalizada (`normxcorr2`) con cada una de las plantillas. Si las dimensiones de la región y la plantilla no coinciden, se redimensiona la más pequeña para que ambas tengan el mismo tamaño.
  7. Al final, se determina la plantilla con la mayor correlación con la región analizada. Se actualiza la variable `mejorPlantilla` con el índice de la plantilla que presenta la mayor correlación y la función lo devuelve. 
 
