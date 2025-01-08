@@ -38,7 +38,7 @@ config.maxIntentos = 5; % Máximo de intemos para adivinar f y c por voz
 
 % Obtiene la cuadricula
 while true
-    [cuadricula, tamCuadricula] = leerCuadricula(config.carpetaNumeros);
+    [cuadricula, tamCuadricula, imagen] = leerCuadricula(config.carpetaNumeros);
     
     if isempty(cuadricula)
         warning("Hubo un error al reconocer la cuadrícula. Por favor, muestre la plantilla de nuevo.")
@@ -46,6 +46,9 @@ while true
         break;
     end
 end
+
+figure, 
+imshow(imagen);
 
 % En caso de que esté mal, que lo cambie
 while true
