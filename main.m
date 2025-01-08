@@ -86,7 +86,7 @@ end
 
 % TODO:
 % Obtiene los objetivos
-[trgf, tgrc] = sumpleteTargets(cuadricula); 
+[trgf, trgc] = sumpleteTargets(cuadricula); 
 
 % Cuadro de marcas
 marks = false(tamCuadricula);
