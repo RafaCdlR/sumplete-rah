@@ -104,8 +104,6 @@ scr = score(sumf, sumc, trgf, trgc);
 
 % La puntuacion maxima es 10
 while scr < 10
-
-    % Seleccion columna
     % Seleccionar método: imagen o voz
     while true
         seleccionarReconocedor = lower(input('Elija un método: Imagen(I) / Voz(V): ', 's'));
@@ -113,19 +111,20 @@ while scr < 10
         if ismember(seleccionarReconocedor, ['i', 'v'])
             break;  
         else
-            disp('Por favor, elija un método válido: "I" para Imagen o "V" para Voz.');
+            warning('Por favor, elija un método válido: "I" para Imagen o "V" para Voz.');
         end
     end
-    % Reconocimiento del mensaje
+
+    % Reconocimiento de fila o columna
     while true
         if seleccionarReconocedor == 'i'
-            [f, c] = obtenerFilaColumnaImagen(config.carpetaNumeros);
+            [fila, columna] = obtenerFilaColumnaImagen(config.carpetaNumeros);
         else
-            [f, c] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
+            [fila, columna] = obtenerFilaColumnaVoz(codebooks, modelosHMM, config);
         end
         
-        if f > tamCuadricula || c > tamCuadricula
-            warning('Fila o columna incorrectas. Se seleccionarán de nuevo.');
+        if fila < 1 || fila > tamCuadricula || columna < 1 || columna > tamCuadricula
+            warning('Fila o columna fuera de rango. Intente nuevamente.');
         else
             break;
         end
@@ -133,16 +132,15 @@ while scr < 10
     % Fin input
 
     % Invierte el valor de las marcas hechas
-    marks(f,c) = ~marks(f,c);
+    marks(fila, columna) = ~marks(fila, columna);
 
     % Calcula de nuevo la puntuacion
     [sumf, sumc] = suma_estado(cuadricula, marks);
     scr = score(sumf, sumc, trgf, trgc);
 
     mostrarTablero(cuadricula, marks, trgf, trgc, sumf, sumc);
-
 end
 
 if scr >= 10
-    disp ("Has completado el sumplete")
+    disp ("¡Has completado el SUMPLETE!")
 end
